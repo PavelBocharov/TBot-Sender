@@ -1,29 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
-    <link rel="icon" type="image/x-icon" href="resources/favicon.png">
+    <title>TBot Sender</title>
+    <link rel="icon" type="image/x-icon" href="./src/favicon.ico">
+    <link rel="stylesheet" href="./src/css/foundation.min.css"/>
+    <style>
+        textarea {
+          width: 100%;
+          resize: vertical;
+        }
+    </style>
 </head>
 <body>
-    <h1>🌐 TEST PAGE</h1>
-    </br>
-    <video
-            width="384" height="479"
-            controls
-            poster="resources/video1/cover.png">
-        <source
-                src="resources/video1/video.mp4"
-                type="video/mp4"/>
-        <source
-                src="resources/video1/video.ogv"
-                type="video/ogg" />
-        <source
-                src="resources/video1/video.webm"
-                type="video/webm" />
-        ⁉️ Your browser doesn't support HTML5 video tag.⁉
-    </video>
-    <a href="/file/base_name-jpg"><h2>📂 Get file with PATH (<code>/file/base_name-jpg</code>)</h2></a>
-    <a href="/file?name=base_name&extension=jpeg"><h2>📂 Get file with QUERY (<code>/file?name=base_name&extension=jpeg</code>)</h2></a>
+<script src="./src/js/vendor/jquery.js"></script>
+<script src="./src/js/vendor/foundation.min.js"></script>
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <div class="grid-container">
+        <div class="row">
+            <div class="columns large-6">
+                <h2>✉️ Post image to Telegram channel/user ✉️</h2>
+                <div class="callout primary">
+                    <h3>Send file</h3>
+                    <input type="file" name="file" id="fileUpload" accept="image/png, image/jpeg">
+                </div>
+                <label>Bot Token
+                    <input type="text" name="bot_token" id="bot_token_id"
+                           placeholder="Example: 123456789:AAAA-abcdabcdabcdabcdabcdabcdabcdabcdabcdabc">
+
+                </label>
+                <label>Chat/User ID
+                    <input type="text" name="chat_id"
+                           placeholder="Example: Chat ID - '-1234567890', user ID - '1234567890'.">
+                </label>
+                <label>Header
+                    <input type="text" name="header" placeholder="Header text">
+                </label>
+                <label>Markdown text
+                    <textarea name="message" placeholder="" onresize="true" rows="10" cols="30"></textarea>
+                </label>
+                <div class="callout primary">
+                    <h3>Watermark</h3>
+                    <input type="file" name="watermark" id="watermarkUpload" accept="image/png, image/jpeg">
+                    <label>Select watermark position
+                        <select name="watermark_position">
+                            <option value="0">NOPE</option>
+                            <option value="1">LEFT_UP</option>
+                            <option value="2">LEFT_DOWN</option>
+                            <option value="3">RIGHT_UP</option>
+                            <option value="4">RIGHT_DOWN</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="expanded button-group radius">
+                    <button type="submit" class="success button">Upload</button>
+                    <a href="https://core.telegram.org/bots/api#markdownv2-style" class="warning button" target="_blank"
+                       rel="noopener noreferrer">Markdown syntax</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </body>
 </html>

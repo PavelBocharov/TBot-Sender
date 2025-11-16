@@ -6,7 +6,10 @@ name = "MarFastAPI"
 [packages]
 fastapi = "*"
 uvicorn = "*"
-dicttoxml = "*"
+pillow = "*"
+numpy = "*"
+python-telegram-bot = "*"
+python-multipart = "*"
 
 [dev-packages]
 

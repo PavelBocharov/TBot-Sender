@@ -1,7 +1,9 @@
-# 🌐 MarFastAPI
-Testing project for learning **Python**, **FastAPI** and **pipenv**.
+# ✉️ TBot Sender ✉️
+
+<img alt="screen.png" src="screen.png" width="600"/>
 
 ## 🟢 Start project
+
 1) Install `pipenv`
    ``` bash
    pip install pipenv
@@ -17,4 +19,12 @@ Testing project for learning **Python**, **FastAPI** and **pipenv**.
    _or_
    ``` bash
    pipenv run uvicorn main:app --reload
+   ``` 
+4) Build Docker image
+   ``` bash
+   docker build --no-cache -t marolok/t_sender:1.0.0 .
+   ```
+
+   ``` bash
+   docker push marolok/t_sender:1.0.0
    ```
