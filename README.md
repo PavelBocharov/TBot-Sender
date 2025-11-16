@@ -1,18 +1,18 @@
 # ✉️ TBot Sender ✉️
 
-<img alt="screen.png" src="screen.png" width="600"/>
+![screen.png](screen.png)
 
 ## 🟢 Start project
 
-1) Install `pipenv`
+### 1️⃣ Install `pipenv`
    ``` bash
    pip install pipenv
    ```
-2) Install dependencies
+### 2️⃣ Install dependencies
    ```bash
    pipenv install
    ```
-3) Start project
+### 3️⃣ Start project
    ``` bash 
    uvicorn main:app --reload
    ```
@@ -20,7 +20,7 @@
    ``` bash
    pipenv run uvicorn main:app --reload
    ``` 
-4) Build Docker image
+### 4️⃣ Build Docker image
    ``` bash
    docker build --no-cache -t marolok/t_sender:1.0.0 .
    ```
