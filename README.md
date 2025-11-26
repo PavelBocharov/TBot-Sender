@@ -37,9 +37,9 @@ python ./main.py
 ### 4️⃣ Build Docker image
 
 ``` bash
-docker build --no-cache -t marolok/t_sender:1.0.0 .
+docker build --no-cache -t marolok/t_sender:1.0.1 .
 ```
 
 ``` bash
-docker push marolok/t_sender:1.0.0
+docker push marolok/t_sender:1.0.1
 ```

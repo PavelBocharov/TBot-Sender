@@ -24,18 +24,23 @@ async def work(
         w_pos: WatermarkPosition
 ):
     try:
-        if w_pos is not WatermarkPosition.NOPE:
-            if image_path is not None:
+        if len(image_path) > 0:
+            if w_pos is not WatermarkPosition.NOPE and len(watermark_path) > 0:
                 img_with_wm = __add_watermark(image_path, watermark_path, w_pos)
+                print(f"Send image with wm: '%s'" % img_with_wm)
                 return await __send_photo(bot_token, chat_id, img_with_wm, caption)
+            else:
+                print(f"Send image: '%s'" % image_path)
+                return await __send_photo(bot_token, chat_id, image_path, caption)
         else:
+            print(f"Send msg: '%s'" % caption)
             return await __send_msg(bot_token, chat_id, caption)
     finally:
         if os.path.exists(image_path):
             os.remove(image_path)
         if os.path.exists(watermark_path):
             os.remove(watermark_path)
-    return False
+    return ""
 
 
 async def __send_photo(bot_token: str, chat_id: str, image_path: str, caption: str):
@@ -49,21 +54,28 @@ async def __send_photo(bot_token: str, chat_id: str, image_path: str, caption: s
             )
         os.remove(image_path)
     except Exception as e:
-        print("Error, but need work. Img: %s Error: %s" % (image_path, e))
+        err = "Error, but need work. Img: %s Error: %s" % (image_path, e)
+        print(err)
         if os.path.exists(image_path):
             os.remove(image_path)
-        return False
+        return err
     finally:
         if os.path.exists(image_path):
             os.remove(image_path)
-    return True
+    return None
 
 
 async def __send_msg(bot_token: str, chat_id: str, caption: str):
-    async with ApplicationBuilder().token(bot_token).build().bot as bot:
-        await bot.send_message(chat_id=chat_id,
-                               text=caption,
-                               parse_mode="MarkdownV2")
+    try:
+        async with ApplicationBuilder().token(bot_token).build().bot as bot:
+            await bot.send_message(chat_id=chat_id,
+                                   text=caption,
+                                   parse_mode="MarkdownV2")
+    except Exception as e:
+        err = "Cannot send msg: %s" % e
+        print(err)
+        return err
+    return None
 
 
 def __add_watermark(image_path: str, watermark_path: str, w_pos: WatermarkPosition):

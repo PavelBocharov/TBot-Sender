@@ -34,21 +34,30 @@ async def upload_files(
         watermark: UploadFile = File(...),
         watermark_position: int = Form("")
 ):
+    print("file: " + file.filename)
+    print("bot_token: " + bot_token)
+    print("chat_id: " + chat_id)
+    print("header: " + header)
+    print("message: " + message)
+    print("watermark: " + watermark.filename)
+    print("watermark_position: " + watermark_position.__str__())
     image_path = ""
     watermark_path = ""
     err_msg = None
     try:
-        print(watermark_position)
-
-        image_path = await __save_file(file)
-        watermark_path = await __save_file(watermark)
+        if len(file.filename) > 0:
+            print("save file")
+            image_path = await __save_file(file)
+        if len(watermark.filename) > 0:
+            print("save watermark")
+            watermark_path = await __save_file(watermark)
 
         print(image_path)
         print(watermark_path)
 
         caption = f"`" + header + "`\n\n" + message
 
-        await telegram_worker.work(
+        err_msg = await telegram_worker.work(
             bot_token, chat_id, image_path, watermark_path, caption, WatermarkPosition(watermark_position)
         )
 
@@ -59,7 +68,7 @@ async def upload_files(
             os.remove(image_path)
         if os.path.exists(watermark_path):
             os.remove(watermark_path)
-    if err_msg is None:
+    if err_msg is None or len(err_msg) == 0:
         return HTMLResponse(f"""
         <html>
             <body>
